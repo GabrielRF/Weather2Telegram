@@ -6,21 +6,21 @@ on:
 
 
 jobs:
-  rss2telegram:
+  weather2telegram:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Setup Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.8'
+          python-version: '3.10'
       - name: Install Requirements
         run: pip install -r requirements.txt
       - name: Run Weather to Telegram
         run: python weather.py
         env:
-          CITY: ${{ env.CITY }}
-          DESTINATION: ${{ DEST }}
-          BOT_TOKEN: ${{ BOT_TOKEN }}
+          CITY: ${{ vars.CITY }}
+          DEST: ${{ vars.DEST }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
