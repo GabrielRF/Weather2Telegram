@@ -1,4 +1,4 @@
-# Weather2Telegram
+# Weather to Telegram
 
 Script para envio da previsão do tempo automaticamente usando GitHub Actions.
 
