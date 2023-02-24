@@ -1,0 +1,26 @@
+name: Cron Action
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 8 * * *'
+
+
+jobs:
+  rss2telegram:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: Install Requirements
+        run: pip install -r requirements.txt
+      - name: Run Weather to Telegram
+        run: python weather.py
+        env:
+          CITY: ${{ env.CITY }}
+          DESTINATION: ${{ DEST }}
+          BOT_TOKEN: ${{ BOT_TOKEN }}
