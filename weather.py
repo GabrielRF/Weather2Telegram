@@ -72,9 +72,12 @@ if __name__ == "__main__":
     DEST = os.environ.get('DEST')
     bot = telebot.TeleBot(TOKEN)
 
-    message = create_weather_message(CITY)
-
-    msg = bot.send_message(DEST, message, parse_mode='HTML')
+    try:
+        message = create_weather_message(CITY)
+        msg = bot.send_message(DEST, message, parse_mode='HTML')
+        bot.pin_chat_message(DEST, msg.id, disable_notification=True)
+        bot.delete_message(DEST, msg.id+1)
+    except Exception as e:
+        print(e)
+        pass
     bot.unpin_all_chat_messages(DEST)
-    bot.pin_chat_message(DEST, msg.id, disable_notification=True)
-    bot.delete_message(DEST, msg.id+1)
